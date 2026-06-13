@@ -1,0 +1,12 @@
+{
+  "mode": "local",
+  "admin": {
+    "username": "admin",
+    "password": "changeme123"
+  },
+  "github": {
+    "owner": "your-github-username",
+    "repo": "Friends-Chat-Online",
+    "pat": ""
+  }
+}

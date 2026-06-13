@@ -18,7 +18,7 @@ export interface SetupInput {
 
 export async function isSetupComplete(
   config: RepoConfig,
-  token: string,
+  token?: string,
 ): Promise<boolean> {
   void config
   return isStorageSetupComplete(token)

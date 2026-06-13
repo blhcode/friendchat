@@ -12,7 +12,7 @@ export async function readUsersFile(
 ): Promise<{ data: UsersFile; sha: string } | null> {
   if (isLocalMode()) return local.readUsersFile()
   const config = getRepoConfig()
-  if (!config || !token) throw new Error('GitHub not configured.')
+  if (!config) throw new Error('GitHub not configured.')
   return github.readUsersFile(config, token)
 }
 
@@ -21,7 +21,7 @@ export async function readMessagesFile(
 ): Promise<{ data: MessagesFile; sha: string } | null> {
   if (isLocalMode()) return local.readMessagesFile()
   const config = getRepoConfig()
-  if (!config || !token) throw new Error('GitHub not configured.')
+  if (!config) throw new Error('GitHub not configured.')
   return github.readMessagesFile(config, token)
 }
 
@@ -67,7 +67,10 @@ export async function writeInitialFiles(
 }
 
 export async function isStorageSetupComplete(token?: string): Promise<boolean> {
-  const users = await readUsersFile(token)
+  if (isLocalMode()) return local.readUsersFile().then((u) => u !== null)
+  const config = getRepoConfig()
+  if (!config) return false
+  const users = await github.readUsersFile(config, token)
   return users !== null
 }
 

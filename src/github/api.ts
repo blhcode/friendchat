@@ -16,12 +16,15 @@ interface FileContent {
   sha: string
 }
 
-function authHeaders(token: string): HeadersInit {
-  return {
-    Authorization: `Bearer ${token}`,
+function requestHeaders(token?: string): HeadersInit {
+  const headers: Record<string, string> = {
     Accept: 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
   }
+  if (token) {
+    headers.Authorization = `Bearer ${token}`
+  }
+  return headers
 }
 
 function decodeContent(base64: string): string {
@@ -51,7 +54,7 @@ export async function testRepoAccess(
   token: string,
 ): Promise<void> {
   const url = `${API_BASE}/repos/${config.owner}/${config.repo}`
-  const response = await fetch(url, { headers: authHeaders(token) })
+  const response = await fetch(url, { headers: requestHeaders(token) })
   if (!response.ok) {
     throw new GitHubApiError(await parseError(response), response.status)
   }
@@ -59,11 +62,11 @@ export async function testRepoAccess(
 
 export async function readFile<T>(
   config: RepoConfig,
-  token: string,
+  token: string | undefined,
   path: string,
 ): Promise<{ data: T; sha: string } | null> {
   const url = `${API_BASE}/repos/${config.owner}/${config.repo}/contents/${path}`
-  const response = await fetch(url, { headers: authHeaders(token) })
+  const response = await fetch(url, { headers: requestHeaders(token) })
 
   if (response.status === 404) {
     return null
@@ -98,7 +101,7 @@ export async function writeFile<T>(
   const response = await fetch(url, {
     method: 'PUT',
     headers: {
-      ...authHeaders(token),
+      ...requestHeaders(token),
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
@@ -142,14 +145,14 @@ export async function writeFileWithRetry<T>(
 
 export async function readUsersFile(
   config: RepoConfig,
-  token: string,
+  token?: string,
 ): Promise<{ data: UsersFile; sha: string } | null> {
   return readFile<UsersFile>(config, token, 'data/users.json')
 }
 
 export async function readMessagesFile(
   config: RepoConfig,
-  token: string,
+  token?: string,
 ): Promise<{ data: MessagesFile; sha: string } | null> {
   return readFile<MessagesFile>(config, token, 'data/messages.json')
 }

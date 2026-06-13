@@ -11,6 +11,7 @@ import {
   setRepoConfig,
 } from './auth/session'
 import { loadAppConfig, isLocalMode } from './config'
+import { loadSiteConfig } from './site'
 import { createChatController, formatTimestamp, type ChatController } from './chat/ui'
 import { isSetupComplete, runSetup } from './setup/wizard'
 import { seedFromConfig } from './setup/seed'
@@ -42,7 +43,15 @@ export async function initApp(root: HTMLElement): Promise<void> {
     return
   }
 
-  // GitHub mode: use config.json if provided, otherwise localStorage + wizard
+  // GitHub mode: load public site.json (owner + repo), then localStorage
+  const siteConfig = await loadSiteConfig()
+  if (siteConfig) {
+    setRepoConfig({
+      owner: siteConfig.owner.trim(),
+      repo: siteConfig.repo.trim(),
+    })
+  }
+
   if (appConfig.github?.owner && appConfig.github?.repo) {
     setRepoConfig({
       owner: appConfig.github.owner.trim(),
@@ -60,13 +69,20 @@ export async function initApp(root: HTMLElement): Promise<void> {
   const config = getRepoConfig()
   const readToken = getReadToken()
 
+  // New devices: show login, not setup (setup is one-time only)
   if (!config) {
-    await render(root, 'setup')
+    await render(root, 'login')
     return
   }
 
   if (readToken) {
     const setupDone = await isSetupComplete(config, readToken)
+    if (!setupDone) {
+      await render(root, 'setup')
+      return
+    }
+  } else {
+    const setupDone = await isSetupComplete(config, undefined)
     if (!setupDone) {
       await render(root, 'setup')
       return
@@ -214,7 +230,6 @@ function renderSetup(root: HTMLElement): void {
 
 function renderLogin(root: HTMLElement): void {
   const local = isLocalMode()
-  const hasReadToken = Boolean(getReadToken())
   const hasConfig = Boolean(getRepoConfig())
 
   root.innerHTML = `
@@ -224,6 +239,7 @@ function renderLogin(root: HTMLElement): void {
       <p class="muted">End-to-end encrypted chat (${getStorageLabel()} mode).</p>
       ${local ? '<p class="hint">Login with the username and password from your <code>config.json</code> file.</p>' : ''}
       ${!local && !hasConfig ? '<p><button type="button" id="goto-setup" class="link-btn">First time? Run setup</button></p>' : ''}
+      ${!local && hasConfig ? '<p class="hint">Log in with the username and password your admin gave you.</p>' : ''}
       <div class="card-actions">${themeToggleButton()}</div>
       <form id="login-form" class="form">
         ${!local && !hasConfig ? `
@@ -231,13 +247,7 @@ function renderLogin(root: HTMLElement): void {
           <input name="owner" required autocomplete="username" />
         </label>
         <label>Repository name
-          <input name="repo" required />
-        </label>
-        ` : ''}
-        ${!local && !hasReadToken ? `
-        <label>Site access token (ask admin)
-          <input name="readToken" type="password" required autocomplete="off" />
-          <span class="hint">One-time per browser. Admin can share: <code>?bootstrap=TOKEN</code></span>
+          <input name="repo" required placeholder="friendchat" />
         </label>
         ` : ''}
         <label>Username
@@ -279,12 +289,8 @@ function renderLogin(root: HTMLElement): void {
           setRepoConfig(config)
         }
 
-        let readToken = getReadToken()
-        if (!readToken) {
-          readToken = String(data.get('readToken')).trim()
-          if (!readToken) throw new Error('Site access token is required.')
-          setReadToken(readToken)
-        }
+        const enteredToken = String(data.get('readToken') ?? '').trim()
+        if (enteredToken) setReadToken(enteredToken)
       }
 
       const session = await login(

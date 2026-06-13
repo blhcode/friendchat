@@ -22,7 +22,7 @@ export async function loadAppConfig(): Promise<AppConfig> {
   if (cached) return cached
 
   try {
-    const response = await fetch('/config.json')
+    const response = await fetch(`${import.meta.env.BASE_URL}config.json`)
     if (!response.ok) {
       cached = GITHUB_DEFAULT
       return cached

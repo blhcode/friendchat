@@ -1,0 +1,12 @@
+{
+  "users": [
+    {
+      "username": "isaiah",
+      "passwordHash": "$2b$12$P2KJSYvfo29hwJNEHmQVseWJmv1cWpFR1GxaT5ecN6LZywYW7B9xq",
+      "salt": "rZtgXFwPOVRHp8mcdEefTQ==",
+      "role": "admin",
+      "encryptedApiToken": "{\"ciphertext\":\"NLKNtXUa6hB+7EsyhK/1BxhJctGXRHJyy9LNJouybgOVy3BYM/Imz5PREGaPcE2KSwUtFLXTruCOmoLem1Ta+QXm+gy1FMQqI1DTTikcFMnt0fDpYqpZ5LNKNuAkFU3ilpBMunr6b9z4Rg//Ag==\",\"iv\":\"sNf3uatoDb8T9+Fv\"}",
+      "encryptedRoomKey": "{\"ciphertext\":\"D823cgVmf3P19Syf/oO1L+7uUbzzF7ax5I97GbdIjwvK/0cQsshLyZUko4sV/VNQ50KZ5XLt9dm4o4L3\",\"iv\":\"RRGfsy46ZQKQ0wRS\"}"
+    }
+  ]
+}

@@ -31,6 +31,14 @@
       "role": "user",
       "encryptedApiToken": "{\"ciphertext\":\"8sBko1GY72RVnuAwvDb0jFMPWw0ygBUyJKPaKGvCCyPrLISZCMrlNRMcYFrRWS59/G3kJxgxUpUTAsOIWtGpmqC0zc5mWP1s8QUGVPuupBee5yvd6UjqV84ngxOLIhU3I+VumlDv2O0WyHuQxA==\",\"iv\":\"2iwiqputYhbjyndX\"}",
       "encryptedRoomKey": "{\"ciphertext\":\"1kPVFquuoy1twB6XzDzGrmlIvdDqUdiBzOrroSux7wOrYPSEXod7MIW9OwbPVwCQlhucbBrmXCJ9n2uF\",\"iv\":\"tFoc8wKAAsqha6o5\"}"
+    },
+    {
+      "username": "marco",
+      "passwordHash": "$2b$12$FzlqR0M8EDPnfk1U8wparuochQZDkbPkyjRUZMyIJin60Mi4nVfqu",
+      "salt": "MAxGvzygNcRA3bc+oYSS2A==",
+      "role": "user",
+      "encryptedApiToken": "{\"ciphertext\":\"ZFu0sY6wxLbPqR39D6xbjJPyWd2We2Dsw2QpwtRbm9tuHWzOQ6gAlfJzg0075ozwDc0rSwqPF/7XthoWRBFf3MwCdCoaT2khPgbXYdRBHKJnqdTDP+KXopNILXK5l+N6qsTvQ6/ySWL06j2ORw==\",\"iv\":\"Qr93hlF2ExOG1U56\"}",
+      "encryptedRoomKey": "{\"ciphertext\":\"sxwXgd/dOZGvkBi3Wzhw6vs9t7cs9fSpdSG9Rg+LtodnFRx8bEoPewqXT82aA9NJGDQ9S8ye/hBiBKVC\",\"iv\":\"sFbEbZiy0462aaRC\"}"
     }
   ]
 }

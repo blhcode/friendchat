@@ -55,6 +55,14 @@
       "timestamp": 1782031362580,
       "ciphertext": "NVvExEXG8BGpqKg8LTZkSAQo/FJ6Xxj7JaFo9XO1LLawQTz0WmkFQ9sH",
       "iv": "CTisnAckpXOLwFat"
+    },
+    {
+      "id": "72a8b3bc-9e97-421d-9f93-4442ea15d3e5",
+      "sender": "isaiah",
+      "threadId": "isaiah::julian",
+      "timestamp": 1782031370972,
+      "ciphertext": "8VnKJe54SzySU1qcQaRaBgySDLSdxKbBoHdHY5sQ9NcmiOH+ydjk8gAQt3Abc8SG1OthzxIbkc+LTQ==",
+      "iv": "SeyMxP6le5tUvjX5"
     }
   ]
 }

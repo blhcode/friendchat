@@ -71,6 +71,14 @@
       "timestamp": 1782167857312,
       "ciphertext": "Bs8fwcx+7WEScfqqm8JuPTq5BCOurtWFUZ5LHhPtbtjuSKxbq9yupf6E5+09Ne4=",
       "iv": "iE56VQkmSh3HFjCT"
+    },
+    {
+      "id": "8eb74208-28b9-426f-9b83-e518bb4242df",
+      "sender": "isaiah",
+      "threadId": "isaiah::julian",
+      "timestamp": 1782167871231,
+      "ciphertext": "Pfp7l6NhRHfMDQOaaS+ICVxYIklW4vCRs7H1sZoWl7irry7wsRQdU9/oBMkbZfB5EXq75xRoJONzRNGYhgEjzOg138kiN3DBkR3FkNXxIL8V",
+      "iv": "uHRv/+o62HgDFRuc"
     }
   ]
 }
